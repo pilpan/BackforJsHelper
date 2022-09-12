@@ -4,6 +4,7 @@ module.exports = {
       userName: 'John Doe',
       email: '123@ya.ru',
       password: '123',
+      avatar: 'https://js-helper.herokuapp.com/lox.jpg',
       createdAt: new Date(),
       updatedAt: new Date(),
     }], {});
