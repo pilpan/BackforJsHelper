@@ -9,7 +9,7 @@ const session = require('express-session');
 const FileStore = require('session-file-store')(session);
 const { User, Question } = require('./db/models');
 
-const PORT = 3002;
+const PORT = process.env.PORT ?? 3002;
 const app = express();
 app.use(cors({
   credentials: true,
