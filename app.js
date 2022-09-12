@@ -7,7 +7,7 @@ const cors = require('cors');
 const bcrypt = require('bcrypt');
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
-const { User, Question, sequelize } = require('./db/models');
+const { User, Post, Question } = require('./db/models');
 
 const PORT = process.env.PORT ?? 3002;
 const app = express();
@@ -132,6 +132,31 @@ app.get('/stat/:num/:id', async (req, res) => {
   try {
     const userUpdate = await User.increment('exp',  {by: Number(req.params.num), where: {id: req.params.id }});
     res.json(200);
+  } catch (error) {
+    console.log(error);
+    res.json(error);
+  }
+});
+app.get('/posts', async (req, res) => {
+  try {
+    const posts = await Post.findAll();
+    res.json(posts);
+  } catch (error) {
+    console.log(error);
+    res.json(error);
+  }
+});
+app.post('/posts/:id', async (req, res) => {
+  try {
+    const newpost = await Post.create({
+      title: req.body.title,
+      text: req.body.text,
+      user_id: req.params.id,
+      postState: false,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+     });
+    res.json(newpost);
   } catch (error) {
     console.log(error);
     res.json(error);

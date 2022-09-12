@@ -18,6 +18,11 @@ module.exports = {
       },
       exp: {
         type: Sequelize.INTEGER,
+        defaultValue: 0,
+      },
+      avatar: {
+        type: Sequelize.STRING,
+        defaultValue: '/lox.png'
       },
       createdAt: {
         allowNull: false,
