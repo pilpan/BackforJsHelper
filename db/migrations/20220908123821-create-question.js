@@ -16,6 +16,15 @@ module.exports = {
       answer: {
         type: Sequelize.STRING,
       },
+      cat_id:{
+        type: Sequelize.INTEGER,
+        references: {
+          model: "Categories",
+          key: "id"
+          },
+          onDelete: "cascade",
+          allowNull : false
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

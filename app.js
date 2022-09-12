@@ -7,7 +7,7 @@ const cors = require('cors');
 const bcrypt = require('bcrypt');
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
-const { User, Question } = require('./db/models');
+const { User, Question, sequelize } = require('./db/models');
 
 const PORT = process.env.PORT ?? 3002;
 const app = express();
@@ -77,6 +77,7 @@ app.get('/logout', async (req, res) => {
     res.json(error);
   }
 });
+// возвращает случайный вопрос
 app.get('/randomquestion', async (req, res) => {
   try {
     const numofQuestion = await Question.findAll();
@@ -89,10 +90,48 @@ app.get('/randomquestion', async (req, res) => {
     res.json(error);
   }
 });
+// возвращает все вопросы из бд
 app.get('/questions', async (req, res) => {
   try {
     const numofQuestion = await Question.findAll();
     res.json(numofQuestion);
+  } catch (error) {
+    console.log(error);
+    res.json(error);
+  }
+});
+// возвращает вопрос опредленной категории
+app.get('/question/:cat', async (req, res) => {
+  try {
+    let cat = 0;
+    switch (req.params.cat) {
+      case 'jun':
+        cat = 1;
+        break;
+      case 'mid':
+        cat = 2;
+        break;
+      case 'sen':
+        cat = 3;
+        break; 
+      case 'rev':
+        cat = 4;
+        break; 
+      default:
+        break;
+    }
+    const numofQuestion = await Question.findAll({where: {cat_id: cat}});
+    res.json(numofQuestion);
+  } catch (error) {
+    console.log(error);
+    res.json(error);
+  }
+});
+// меняет в бз колличество экспы
+app.get('/stat/:num/:id', async (req, res) => {
+  try {
+    const userUpdate = await User.increment('exp',  {by: Number(req.params.num), where: {id: req.params.id }});
+    res.json(200);
   } catch (error) {
     console.log(error);
     res.json(error);
