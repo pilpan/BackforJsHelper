@@ -139,7 +139,7 @@ app.get('/stat/:num/:id', async (req, res) => {
 });
 app.get('/posts', async (req, res) => {
   try {
-    const posts = await Post.findAll();
+    const posts = await Post.findAll({include: { model: User}});
     res.json(posts);
   } catch (error) {
     console.log(error);
