@@ -1,3 +1,3 @@
-<script src="file.js">
-  alert(1); // содержимое игнорируется, так как есть атрибут src
-</script>
+function sum(a, b) {
+  return a + b;
+}
