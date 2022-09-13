@@ -3,6 +3,7 @@ require('dotenv').config();
 const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
+const fs = require('fs');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
 const session = require('express-session');
@@ -165,6 +166,11 @@ app.post('/posts/:id', async (req, res) => {
     res.json(error);
   }
 });
+
+app.get('/test', (req,res) => {
+  const data = fs.readFileSync('./public/test.js','utf-8');
+  res.json(data);
+})
 app.listen(PORT, () => {
   console.log(`Server has been started on PORT ${PORT}`);
 });
