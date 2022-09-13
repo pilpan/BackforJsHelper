@@ -41,7 +41,7 @@ app.use(session(sessionConfig));
 app.post('/reg', async (req, res) => {
   try {
     const finduser = await User.findAll({ where: [{ email: req.body.email },{ userName: req.body.userName }] });
-    if (finduser[0]) {
+    if (!finduser[0]) {
       const hashPass = await bcrypt.hash(req.body.password, 10);
       await User.create({
         email: req.body.email,
@@ -53,7 +53,7 @@ app.post('/reg', async (req, res) => {
       req.session.UserSession = req.body;
        return res.json({ id: req.session.UserSession.id, userName: req.session.UserSession.userName});
     }
-    return res.send(202);
+    return res.send(400);
   } catch (error) {
     res.json(error);
   }
@@ -61,13 +61,14 @@ app.post('/reg', async (req, res) => {
 // если приходит 202 то это значит что пользователь что-то не правильно ввел
 app.get('/login', async (req, res) => {
   try {
-    const logUser = await User.findAll({ Where: { email: req.body.email } });
-    const result = await bcrypt.compare(req.body.password, logUser.password);
+    // console.log(req.body.email);
+    const logUser = await User.findAll({ where: { email: req.body.email } });
+    const result = await bcrypt.compare(req.body.password, logUser[0].password);
     if (result) {
       req.session.UserSession = req.body;
       return res.json({ id: req.session.UserSession.id, userName: req.session.UserSession.userName });
     }
-    return res.sendStatus(202);
+    return res.sendStatus(400);
   } catch (error) {
     res.json(error);
   }
