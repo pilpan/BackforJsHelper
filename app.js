@@ -59,9 +59,8 @@ app.post('/reg', async (req, res) => {
   }
 });
 // если приходит 202 то это значит что пользователь что-то не правильно ввел
-app.get('/login', async (req, res) => {
+app.post('/login', async (req, res) => {
   try {
-    // console.log(req.body.email);
     const logUser = await User.findAll({ where: { email: req.body.email } });
     const result = await bcrypt.compare(req.body.password, logUser[0].password);
     console.log(result);
