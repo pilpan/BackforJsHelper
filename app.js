@@ -169,10 +169,24 @@ app.get('/test', (req,res) => {
 app.get('/com/:id', async (req,res) => {
   const postComm = await Comment.findAll({
     where: {post_id: req.params.id},
-    include: { model:Post },
+    include: { model:User },
   })
   console.log(postComm);
   res.json(postComm);
+})
+app.post('/com/:postId/:userId', async (req,res) => {
+  try {
+    const newComment = await Comment.create({
+      text: req.body.text,
+      post_id: req.params.postId,
+      user_id: req.params.userId,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    })
+    res.json(newComment);
+  } catch (error) {
+    res.json(error);
+  }
 })
 
 const getHTML = async (url) => {
