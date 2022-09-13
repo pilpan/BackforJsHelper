@@ -9,6 +9,7 @@ const bcrypt = require('bcrypt');
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
 const { User, Post, Question, Comment} = require('./db/models');
+const { Op } = require('sequelize');
 
 const PORT = process.env.PORT ?? 3002;
 const app = express();
@@ -40,7 +41,13 @@ app.use(session(sessionConfig));
 // если приходит 202 то это значит что пользователь уже есть в бд
 app.post('/reg', async (req, res) => {
   try {
-    const finduser = await User.findAll({ where: [{ email: req.body.email },{ userName: req.body.userName }] });
+    const finduser = await User.findAll({ where: {
+      [Op.or]:
+      [{ email: req.body.email },
+      { userName: req.body.userName }] 
+    }
+    });
+    console.log(finduser[0]);
     if (!finduser[0]) {
       const hashPass = await bcrypt.hash(req.body.password, 10);
       const temp = await User.create({
