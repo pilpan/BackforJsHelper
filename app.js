@@ -44,6 +44,7 @@ app.get('/reg', async (req, res) => {
       const hashPass = await bcrypt.hash(req.body.password, 10);
       await User.create({
         email: req.body.email,
+        userName: req.body.userName,
         password: hashPass,
         createdAt: new Date(),
         updatedAt: new Date(),
