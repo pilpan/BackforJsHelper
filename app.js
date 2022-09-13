@@ -185,7 +185,7 @@ app.get('/news', async (req,res) => {
     const pageNumber = href('a.tm-pagination__page').eq(-1).text();
     console.log(pageNumber);
     const arr = [];
-    for (let i = 1; i <= 2; i++) {
+    for (let i = 1; i <= 3; i++) {
       const selector = await getHTML(
         `https://habr.com/ru/flows/develop/news/page${i}/`,
       );
