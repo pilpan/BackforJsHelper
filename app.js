@@ -10,7 +10,7 @@ const session = require('express-session');
 const FileStore = require('session-file-store')(session);
 const axios = require('axios');
 const cheerio = require('cheerio');
-const { User, Post, Question, Comment} = require('./db/models');
+const { User, Post, Question, Category, Comment} = require('./db/models');
 const { Op } = require('sequelize');
 
 const PORT = process.env.PORT ?? 3002;
@@ -109,7 +109,7 @@ app.get('/randomquestion', async (req, res) => {
 // возвращает все вопросы из бд
 app.get('/questions', async (req, res) => {
   try {
-    const numofQuestion = await Question.findAll();
+    const numofQuestion = await Question.findAll({include: {model: Category}});
     res.json(numofQuestion);
   } catch (error) {
     console.log(error);
@@ -119,7 +119,7 @@ app.get('/questions', async (req, res) => {
 // возвращает вопрос опредленной категории
 app.get('/question/:cat', async (req, res) => {
   try {
-    const numofQuestion = await Question.findAll({where: {cat_id: req.params.cat}});
+    const numofQuestion = await Question.findAll({where: {cat_id: req.params.cat}, include: {model: Category}});
     res.json(numofQuestion);
   } catch (error) {
     console.log(error);
