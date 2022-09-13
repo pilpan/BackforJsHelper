@@ -43,7 +43,7 @@ app.post('/reg', async (req, res) => {
     const finduser = await User.findAll({ where: [{ email: req.body.email },{ userName: req.body.userName }] });
     if (!finduser[0]) {
       const hashPass = await bcrypt.hash(req.body.password, 10);
-      await User.create({
+      const temp = await User.create({
         email: req.body.email,
         userName: req.body.userName,
         password: hashPass,
@@ -51,7 +51,7 @@ app.post('/reg', async (req, res) => {
         updatedAt: new Date(),
       });
       req.session.UserSession = req.body;
-       return res.json({ id: req.session.UserSession.id, userName: req.session.UserSession.userName});
+       return res.json({ id: temp.id, userName: req.session.UserSession.userName});
     }
     return res.send(400);
   } catch (error) {
@@ -64,9 +64,11 @@ app.get('/login', async (req, res) => {
     // console.log(req.body.email);
     const logUser = await User.findAll({ where: { email: req.body.email } });
     const result = await bcrypt.compare(req.body.password, logUser[0].password);
+    console.log(result);
     if (result) {
       req.session.UserSession = req.body;
-      return res.json({ id: req.session.UserSession.id, userName: req.session.UserSession.userName });
+      console.log(logUser[0].id);
+      return res.json({ id: logUser[0].id, userName: req.session.UserSession.userName });
     }
     return res.sendStatus(400);
   } catch (error) {
