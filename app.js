@@ -36,7 +36,7 @@ const sessionConfig = {
 };
 
 app.use(session(sessionConfig));
-
+// если приходит 202 то это значит что пользователь уже есть в бд
 app.get('/reg', async (req, res) => {
   try {
     const finduser = await User.findAll({ where: { email: req.body.email } });
@@ -49,12 +49,14 @@ app.get('/reg', async (req, res) => {
         updatedAt: new Date(),
       });
       req.session.UserSession = req.body;
-      res.json(req.session.UserSession.email);
+       return res.json(req.session.UserSession.email);
     }
+    return res.send(202);
   } catch (error) {
     res.json(error);
   }
 });
+// если приходит 202 то это значит что пользователь что-то не правильно ввел
 app.get('/login', async (req, res) => {
   try {
     const logUser = await User.findAll({ Where: { email: req.body.email } });
