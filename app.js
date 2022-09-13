@@ -51,7 +51,8 @@ app.post('/reg', async (req, res) => {
         updatedAt: new Date(),
       });
       req.session.UserSession = req.body;
-       return res.json({ id: temp.id, userName: req.session.UserSession.userName});
+      console.log(temp.exp);
+       return res.json({ id: temp.id, userName: req.session.UserSession.userName, exp: temp.exp});
     }
     return res.send(400);
   } catch (error) {
@@ -67,7 +68,7 @@ app.post('/login', async (req, res) => {
     if (result) {
       req.session.UserSession = req.body;
       console.log(logUser[0].id);
-      return res.json({ id: logUser[0].id, userName: logUser[0].userName });
+      return res.json({ id: logUser[0].id, userName: logUser[0].userName, exp: logUser[0].exp });
     }
     return res.sendStatus(400);
   } catch (error) {
@@ -109,24 +110,7 @@ app.get('/questions', async (req, res) => {
 // возвращает вопрос опредленной категории
 app.get('/question/:cat', async (req, res) => {
   try {
-    let cat = 0;
-    switch (req.params.cat) {
-      case 'jun':
-        cat = 1;
-        break;
-      case 'mid':
-        cat = 2;
-        break;
-      case 'sen':
-        cat = 3;
-        break; 
-      case 'rev':
-        cat = 4;
-        break; 
-      default:
-        break;
-    }
-    const numofQuestion = await Question.findAll({where: {cat_id: cat}});
+    const numofQuestion = await Question.findAll({where: {cat_id: req.params.cat}});
     res.json(numofQuestion);
   } catch (error) {
     console.log(error);
