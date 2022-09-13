@@ -39,7 +39,7 @@ app.use(session(sessionConfig));
 // если приходит 202 то это значит что пользователь уже есть в бд
 app.get('/reg', async (req, res) => {
   try {
-    const finduser = await User.findAll({ where: { email: req.body.email } });
+    const finduser = await User.findAll({ where: [{ email: req.body.email },{ userName: req.body.userName }] });
     if (finduser[0]) {
       const hashPass = await bcrypt.hash(req.body.password, 10);
       await User.create({
