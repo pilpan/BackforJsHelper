@@ -50,7 +50,7 @@ app.get('/reg', async (req, res) => {
         updatedAt: new Date(),
       });
       req.session.UserSession = req.body;
-       return res.json({ id: req.session.UserSession.id, email: req.session.UserSession.email});
+       return res.json({ id: req.session.UserSession.id, userName: req.session.UserSession.userName});
     }
     return res.send(202);
   } catch (error) {
@@ -64,7 +64,7 @@ app.get('/login', async (req, res) => {
     const result = await bcrypt.compare(req.body.password, logUser.password);
     if (result) {
       req.session.UserSession = req.body;
-      return res.json({ id: req.session.UserSession.id, email: req.session.UserSession.email});
+      return res.json({ id: req.session.UserSession.id, userName: req.session.UserSession.userName });
     }
     return res.sendStatus(202);
   } catch (error) {
