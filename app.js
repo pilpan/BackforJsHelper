@@ -38,7 +38,7 @@ const sessionConfig = {
 
 app.use(session(sessionConfig));
 // если приходит 202 то это значит что пользователь уже есть в бд
-app.get('/reg', async (req, res) => {
+app.post('/reg', async (req, res) => {
   try {
     const finduser = await User.findAll({ where: [{ email: req.body.email },{ userName: req.body.userName }] });
     if (finduser[0]) {
