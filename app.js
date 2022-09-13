@@ -8,7 +8,7 @@ const cors = require('cors');
 const bcrypt = require('bcrypt');
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
-const { User, Post, Question } = require('./db/models');
+const { User, Post, Question, Comment} = require('./db/models');
 
 const PORT = process.env.PORT ?? 3002;
 const app = express();
@@ -174,6 +174,15 @@ app.get('/test', (req,res) => {
   const data = fs.readFileSync('./public/test.js','utf-8');
   res.json(data);
 })
+app.get('/com/:id', async (req,res) => {
+  const postComm = await Comment.findAll({
+    where: {post_id: req.params.id},
+    include: { model:Post },
+  })
+  console.log(postComm);
+  res.json(postComm);
+})
+
 app.listen(PORT, () => {
   console.log(`Server has been started on PORT ${PORT}`);
 });
