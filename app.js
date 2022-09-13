@@ -8,6 +8,8 @@ const cors = require('cors');
 const bcrypt = require('bcrypt');
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
+const axios = require('axios');
+const cheerio = require('cheerio');
 const { User, Post, Question, Comment} = require('./db/models');
 const { Op } = require('sequelize');
 
@@ -171,6 +173,32 @@ app.get('/com/:id', async (req,res) => {
   })
   console.log(postComm);
   res.json(postComm);
+})
+
+const getHTML = async (url) => {
+  const { data } = await axios.get(url);
+  return cheerio.load(data);
+};
+app.get('/news', async (req,res) => {
+  try {
+    const href = await getHTML('https://habr.com/ru/flows/develop/news/');
+    const pageNumber = href('a.tm-pagination__page').eq(-1).text();
+    console.log(pageNumber);
+    const arr = [];
+    for (let i = 1; i <= 2; i++) {
+      const selector = await getHTML(
+        `https://habr.com/ru/flows/develop/news/page${i}/`,
+      );
+      selector('.tm-article-snippet').each((i, element) => {
+        const link = `https://habr.com${selector(element).find('a.tm-article-snippet__title-link').attr('href')}`;
+        const title = selector(element).find('a.tm-article-snippet__title-link').text();
+        arr.push({title,link});
+      });
+    }
+    res.json(arr);
+  } catch (error) {
+    console.log('iui!', error);
+  }
 })
 
 app.listen(PORT, () => {
