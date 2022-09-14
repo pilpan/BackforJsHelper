@@ -2,8 +2,8 @@ const fs = require('fs');
 
 const path = require('path');
 
-let arr = fs.readFileSync(path.join(__dirname,'../../public/Rev/answerRev.txt'), 'utf-8').split('\n');
-arr = arr.map((el,index) => el = {
+let arrRev = fs.readFileSync(path.join(__dirname,'../../public/Rev/answerRev.txt'), 'utf-8').split('\n');
+arrRev = arrRev.map((el,index) => el = {
   question: `/Rev/${index+1}rev.js`,
   list: '',
   answer: el,
@@ -11,16 +11,10 @@ arr = arr.map((el,index) => el = {
   createdAt: new Date(),
   updatedAt: new Date(),
 });
+
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.bulkInsert('Questions', [...arr,{
-      question: '/1.png',
-      list: 'один|два|два и один|один и два',
-      answer: 'Два',
-      cat_id:1,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-     }], {});
+    await queryInterface.bulkInsert('Questions', arrRev, {});
   },
 
   async down(queryInterface, Sequelize) {

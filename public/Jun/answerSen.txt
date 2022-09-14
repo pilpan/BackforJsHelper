@@ -1,0 +1,10 @@
+TypeErorr: Cannot ann property str,object is not extensible
+undefined и ReferenceError
+3 3 3 и 0 1 2
+20 и NaN
+1 и false
+mouse.bird.size
+Hello
+true false false
+TypeError
+{}
