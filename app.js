@@ -210,7 +210,10 @@ app.get('/news', async (req,res) => {
       selector('.tm-article-snippet').each((i, element) => {
         const link = `https://habr.com${selector(element).find('a.tm-article-snippet__title-link').attr('href')}`;
         const title = selector(element).find('a.tm-article-snippet__title-link').text();
-        const images = `https://habr.com${selector(element).find('img').attr('src')}`;
+        let images = selector(element).find('img.tm-article-snippet__lead-image').attr('src');
+        if(!images) {
+          images = 'https://avatars.githubusercontent.com/u/108213499?v=4'
+        }
         const subTitle = selector(element).find('div.article-formatted-body').find('p').text();
         arr.push({
           link, title, images, subTitle,
