@@ -72,8 +72,10 @@ app.post('/reg', async (req, res) => {
 app.post('/login', async (req, res) => {
   try {
     const logUser = await User.findAll({ where: { email: req.body.email } });
+    if(!logUser[0]) {
+      return res.sendStatus(400);
+    }
     const result = await bcrypt.compare(req.body.password, logUser[0].password);
-    console.log(result);
     if (result) {
       req.session.UserSession = req.body;
       console.log(logUser[0].id);
