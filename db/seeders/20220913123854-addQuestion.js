@@ -7,7 +7,7 @@ arrRev = arrRev.map((el,index) => el = {
   question: `/Rev/${index+1}rev.js`,
   list: '',
   answer: el,
-  cat_id:4,
+  cat_id: 4,
   createdAt: new Date(),
   updatedAt: new Date(),
 });

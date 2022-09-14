@@ -1,0 +1,10 @@
+один|два|два один|один два
+42|«42»|7|Nan
+Да|Нет
+{name: "Ivan", age: 22}|{name: "Ivan", age: 23}|{name: "Mr. Smith", age: 22}|{name: "Mr. Smith", age: 23}
+TypeError|ReferenceError|Undefined|SyntaxError
+"12"|TypeError|3|NaN
+0|falsy|truthy|SyntaxError
+1 1 2|1 2 2|0 2 2|0 1 2
+true true|true false|1 true|1 false
+77Foo|NaN|Foo77|SyntaxError: Unexpected token '='

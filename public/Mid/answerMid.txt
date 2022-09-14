@@ -1,0 +1,10 @@
+ReferenceError
+105
+Пока пользователь не закроет вкладку.
+10
+true true false true
+{ a: "three", b: "two" }
+1 2 4
+"Just give Lydia pizza already!"
+456
+First Third Second

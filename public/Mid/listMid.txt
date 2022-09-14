@@ -1,0 +1,10 @@
+21|undefined|ReferenceError|TypeError
+105|"105"|TypeError|"10*10+5"
+Всегда, данные не потеряются.|Пока пользователь не закроет вкладку.|Пока пользователь не закроет браузер, а не только вкладку.|Пока пользователь не выключит компьютер.
+8|10|SyntaxError|ReferenceError
+false true false true|false true true true|true true false true|true true true true
+{ a: "one", b: "two" }|{ b: "two", a: "three" }|{ a: "three", b: "two" }|SyntaxError
+1 2|1 2 3|1 2 4|1 3 4
+"Just give Lydia pizza already!"|TypeError: not a function|SyntaxError|undefined
+123|456|undefined|ReferenceError
+First Second Third|First Third Second|Second First Third|Second Third First

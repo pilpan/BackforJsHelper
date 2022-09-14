@@ -7,7 +7,7 @@ arrAnsSen = arrAnsSen.map((el,index) => el = {
   question: `/Sen/${index+1}sen.js`,
   list: arrListSen[index],
   answer: el,
-  cat_id:3,
+  cat_id: 3,
   createdAt: new Date(),
   updatedAt: new Date(),
 });

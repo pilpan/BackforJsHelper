@@ -1,0 +1,10 @@
+Два
+7
+Да
+{name: "Mr. Smith", age: 22}
+TypeError
+"12"
+falsy
+0 2 2
+1 true
+SyntaxError: Unexpected token '='

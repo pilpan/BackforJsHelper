@@ -166,6 +166,7 @@ app.post('/posts/:id', async (req, res) => {
 });
 
 app.post('/catque', (req,res) => {
+  console.log(req.body.path);
   const data = fs.readFileSync(`./public${req.body.path}`,'utf-8');
   res.json(data);
 })
