@@ -212,7 +212,7 @@ app.get('/news', async (req,res) => {
         const title = selector(element).find('a.tm-article-snippet__title-link').text();
         let images = selector(element).find('img.tm-article-snippet__lead-image').attr('src');
         if(!images) {
-          images = 'https://upload.wikimedia.org/wikipedia/ru/a/ac/No_image_available.svg'
+          images = 'https://png.pngtree.com/png-vector/20190214/ourlarge/pngtree-vector-coffee-icon-png-image_449722.jpg'
         }
         const subTitle = selector(element).find('div.article-formatted-body').find('p').text();
         arr.push({
