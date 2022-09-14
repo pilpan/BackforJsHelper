@@ -155,7 +155,8 @@ app.post('/posts/:id', async (req, res) => {
       createdAt: new Date(),
       updatedAt: new Date(),
      });
-    res.json(newpost);
+     const tempPost = await Post.findByPk(newpost.id,{include:{model: User}});
+    res.json(tempPost);
   } catch (error) {
     console.log(error);
     res.json(error);
@@ -183,7 +184,8 @@ app.post('/com/:postId/:userId', async (req,res) => {
       createdAt: new Date(),
       updatedAt: new Date(),
     })
-    res.json(newComment);
+    const tempComm = await Comment.findByPk(newComment.id,{include:{model:User}});
+    res.json(tempComm);
   } catch (error) {
     res.json(error);
   }
