@@ -212,7 +212,7 @@ app.get('/news', async (req,res) => {
         const title = selector(element).find('a.tm-article-snippet__title-link').text();
         let images = selector(element).find('img.tm-article-snippet__lead-image').attr('src');
         if(!images) {
-          images = 'https://avatars.githubusercontent.com/u/108213499?v=4'
+          images = 'https://upload.wikimedia.org/wikipedia/ru/a/ac/No_image_available.svg'
         }
         const subTitle = selector(element).find('div.article-formatted-body').find('p').text();
         arr.push({
