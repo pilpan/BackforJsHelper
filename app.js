@@ -165,8 +165,8 @@ app.post('/posts/:id', async (req, res) => {
   }
 });
 
-app.get('/test', (req,res) => {
-  const data = fs.readFileSync('./public/test.js','utf-8');
+app.get('/:path', (req,res) => {
+  const data = fs.readFileSync(`./public${req.params.path}`,'utf-8');
   res.json(data);
 })
 app.get('/com/:id', async (req,res) => {
