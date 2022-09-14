@@ -8,13 +8,13 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       question: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
       },
       list: {
         type: Sequelize.STRING,
       },
       answer: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
       },
       cat_id:{
         type: Sequelize.INTEGER,
