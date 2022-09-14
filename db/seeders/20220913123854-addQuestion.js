@@ -13,7 +13,14 @@ arr = arr.map((el,index) => el = {
 });
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.bulkInsert('Questions', arr, {});
+    await queryInterface.bulkInsert('Questions', [...arr,{
+      question: '/1.png',
+      list: 'один|два|два и один|один и два',
+      answer: 'Два',
+      cat_id:1,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+     }], {});
   },
 
   async down(queryInterface, Sequelize) {
