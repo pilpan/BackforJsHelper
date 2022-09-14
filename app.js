@@ -208,7 +208,11 @@ app.get('/news', async (req,res) => {
       selector('.tm-article-snippet').each((i, element) => {
         const link = `https://habr.com${selector(element).find('a.tm-article-snippet__title-link').attr('href')}`;
         const title = selector(element).find('a.tm-article-snippet__title-link').text();
-        arr.push({title,link});
+        const images = `https://habr.com${selector(element).find('img').attr('src')}`;
+        const subTitle = selector(element).find('div.article-formatted-body').find('p').text();
+        arr.push({
+          link, title, images, subTitle,
+        });
       });
     }
     res.json(arr);
