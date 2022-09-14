@@ -4,7 +4,7 @@ const path = require('path');
 
 let arr = fs.readFileSync(path.join(__dirname,'../../public/Rev/answerRev.txt'), 'utf-8').split('\n');
 arr = arr.map((el,index) => el = {
-  question: `/${index+1}rev.js`,
+  question: `/Rev/${index+1}rev.js`,
   list: '',
   answer: el,
   cat_id:4,
