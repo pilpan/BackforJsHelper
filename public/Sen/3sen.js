@@ -1,4 +1,4 @@
-<pre style='height: 10em; background-color: rgba(255, 255, 128, .5);'>
+<pre style='height: 15em; background-color: rgba(255, 255, 128, .5);'>
   <code>
     //Что будет в консоли?
   for (var i = 0; i < 3; i++) {
