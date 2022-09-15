@@ -146,7 +146,7 @@ app.get('/stat/:num/:id', async (req, res) => {
       }
       await temp.save();
     }
-    res.json({id: temp.id, email: temp.email, exp: temp.exp, userName: temp.userName});
+    res.json({id: temp.id, email: temp.email, exp: temp.exp, userName: temp.userName, avatar: temp.avatar});
   } catch (error) {
     console.log(error);
     res.json(error);
