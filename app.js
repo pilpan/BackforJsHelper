@@ -132,7 +132,21 @@ app.get('/question/:cat', async (req, res) => {
 app.get('/stat/:num/:id', async (req, res) => {
   try {
     const userUpdate = await User.increment('exp',  {by: Number(req.params.num), where: {id: req.params.id }});
-    res.json(200);
+    const temp = await User.findByPk(userUpdate[0][0][0].id)
+    if(userUpdate[0][0][0].exp >= 1000) {
+      temp.avatar = 'https://js-helper.herokuapp.com/2_level.jpg';
+      if(userUpdate[0][0][0].exp >= 2000) {
+        temp.avatar = 'https://js-helper.herokuapp.com/3_level.jpg';
+        if(userUpdate[0][0][0].exp >= 3000) {
+          temp.avatar = 'https://js-helper.herokuapp.com/4_level.jpg';
+          if(userUpdate[0][0][0].exp >= 4000) {
+            temp.avatar = 'https://js-helper.herokuapp.com/5_level.jpg';
+          }
+        }
+      }
+      await temp.save();
+    }
+    res.json(temp);
   } catch (error) {
     console.log(error);
     res.json(error);

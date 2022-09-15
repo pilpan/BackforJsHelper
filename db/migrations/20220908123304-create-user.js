@@ -22,7 +22,7 @@ module.exports = {
       },
       avatar: {
         type: Sequelize.STRING,
-        defaultValue: 'https://js-helper.herokuapp.com/lox.jpg'
+        defaultValue: 'https://js-helper.herokuapp.com/1_level.jpg'
       },
       createdAt: {
         allowNull: false,
