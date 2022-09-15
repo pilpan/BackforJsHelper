@@ -79,7 +79,7 @@ app.post('/login', async (req, res) => {
     if (result) {
       req.session.UserSession = req.body;
       console.log(logUser[0].id);
-      return res.json({ id: logUser[0].id, userName: logUser[0].userName, exp: logUser[0].exp });
+      return res.json({ id: logUser[0].id, userName: logUser[0].userName, exp: logUser[0].exp, avatar: logUser[0].avatar });
     }
     return res.sendStatus(400);
   } catch (error) {
